@@ -1,0 +1,29 @@
+{
+  "image": "mcr.microsoft.com/devcontainers/universal:2",
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "configureZshAsDefaultShell": true
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "yoavbls.pretty-ts-errors",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "esbenp.prettier-vscode",
+        "dbaeumer.vscode-eslint",
+        "eamodio.gitlens",
+        "vscode-icons-team.vscode-icons",
+        "bradlc.vscode-tailwindcss",
+        "2gua.rainbow-brackets",
+        "merithayan.polar",
+        "firsttris.vscode-jest-runner",
+        "svelte.svelte-vscode"
+      ]
+    }
+  }
+}
