@@ -21,7 +21,6 @@
         "vscode-icons-team.vscode-icons",
         "bradlc.vscode-tailwindcss",
         "merithayan.polar",
-        "firsttris.vscode-jest-runner",
         "svelte.svelte-vscode"
       ]
     }
