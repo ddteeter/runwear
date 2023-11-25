@@ -6,7 +6,8 @@
     "ghcr.io/devcontainers/features/common-utils:2": {
       "configureZshAsDefaultShell": true
     },
-    "ghcr.io/devcontainers/features/github-cli:1": {}
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/shyim/devcontainers-features/bun:0": {}
   },
   "customizations": {
     "vscode": {
