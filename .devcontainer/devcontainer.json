@@ -1,5 +1,6 @@
 {
   "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  "dockerComposeFile": "docker-compose.yml",
   "features": {
     "ghcr.io/devcontainers/features/git:1": {},
     "ghcr.io/devcontainers/features/common-utils:2": {
@@ -23,7 +24,8 @@
         "Vue.volar",
         "ms-playwright.playwright",
         "prisma.prisma",
-        "mtxr.sqltools"
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg"
       ]
     }
   }
