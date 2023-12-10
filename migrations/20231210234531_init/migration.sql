@@ -10,9 +10,12 @@ CREATE TYPE "BodyPart" AS ENUM ('HEAD', 'FACE', 'NECK', 'ARMS', 'HANDS', 'TORSO'
 -- CreateEnum
 CREATE TYPE "Layer" AS ENUM ('BASE', 'MID', 'OUTER');
 
+-- CreateEnum
+CREATE TYPE "QueueQualifier" AS ENUM ('STRAVA_WEBHOOK');
+
 -- CreateTable
 CREATE TABLE "User" (
-    "id" SERIAL NOT NULL,
+    "id" UUID NOT NULL,
     "email" TEXT NOT NULL,
     "name" TEXT NOT NULL,
 
@@ -20,8 +23,18 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
+CREATE TABLE "ConnectedService" (
+    "id" UUID NOT NULL,
+    "userId" UUID NOT NULL,
+    "subscriptionId" TEXT NOT NULL,
+    "service" "WorkoutSource" NOT NULL,
+
+    CONSTRAINT "ConnectedService_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Activity" (
-    "id" SERIAL NOT NULL,
+    "id" UUID NOT NULL,
     "name" TEXT NOT NULL,
     "at" TIMESTAMP(3) NOT NULL,
     "durationSeconds" INTEGER NOT NULL,
@@ -33,17 +46,16 @@ CREATE TABLE "Activity" (
 
 -- CreateTable
 CREATE TABLE "Outfit" (
-    "id" SERIAL NOT NULL,
+    "id" UUID NOT NULL,
     "date" DATE NOT NULL,
-    "activityId" INTEGER NOT NULL,
-    "userId" INTEGER NOT NULL,
+    "activityId" UUID NOT NULL,
 
     CONSTRAINT "Outfit_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "Conditions" (
-    "id" SERIAL NOT NULL,
+    "id" UUID NOT NULL,
     "temperature" DECIMAL(65,30) NOT NULL,
     "perceivedTemperature" DECIMAL(65,30),
     "humidity" INTEGER,
@@ -51,7 +63,7 @@ CREATE TABLE "Conditions" (
     "windDirection" TEXT,
     "precipitationType" TEXT,
     "precipitationIntensity" INTEGER,
-    "outfitId" INTEGER NOT NULL,
+    "outfitId" UUID NOT NULL,
     "dataSource" "WeatherDataSource" NOT NULL,
     "dataSourceUrl" TEXT,
 
@@ -60,20 +72,20 @@ CREATE TABLE "Conditions" (
 
 -- CreateTable
 CREATE TABLE "LinkedWorkout" (
-    "id" SERIAL NOT NULL,
+    "id" UUID NOT NULL,
     "globalId" TEXT NOT NULL,
     "url" TEXT NOT NULL,
     "source" "WorkoutSource" NOT NULL,
-    "activityId" INTEGER NOT NULL,
+    "activityId" UUID NOT NULL,
 
     CONSTRAINT "LinkedWorkout_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "OutfitArticle" (
-    "id" SERIAL NOT NULL,
-    "outfitId" INTEGER NOT NULL,
-    "articleId" INTEGER NOT NULL,
+    "id" UUID NOT NULL,
+    "outfitId" UUID NOT NULL,
+    "articleId" UUID NOT NULL,
     "layer" "Layer",
 
     CONSTRAINT "OutfitArticle_pkey" PRIMARY KEY ("id")
@@ -81,8 +93,8 @@ CREATE TABLE "OutfitArticle" (
 
 -- CreateTable
 CREATE TABLE "Article" (
-    "id" SERIAL NOT NULL,
-    "brandId" INTEGER NOT NULL,
+    "id" UUID NOT NULL,
+    "brandId" UUID NOT NULL,
     "name" TEXT NOT NULL,
     "year" INTEGER,
     "url" TEXT,
@@ -93,11 +105,21 @@ CREATE TABLE "Article" (
 
 -- CreateTable
 CREATE TABLE "Brand" (
-    "id" SERIAL NOT NULL,
+    "id" UUID NOT NULL,
     "name" TEXT NOT NULL,
     "url" TEXT,
 
     CONSTRAINT "Brand_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Queue" (
+    "id" UUID NOT NULL,
+    "timeInserted" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "payload" JSONB NOT NULL,
+    "qualifier" "QueueQualifier" NOT NULL,
+
+    CONSTRAINT "Queue_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -119,10 +141,10 @@ CREATE UNIQUE INDEX "LinkedWorkout_activityId_key" ON "LinkedWorkout"("activityI
 CREATE UNIQUE INDEX "Brand_name_key" ON "Brand"("name");
 
 -- AddForeignKey
-ALTER TABLE "Outfit" ADD CONSTRAINT "Outfit_activityId_fkey" FOREIGN KEY ("activityId") REFERENCES "Activity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ConnectedService" ADD CONSTRAINT "ConnectedService_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Outfit" ADD CONSTRAINT "Outfit_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Outfit" ADD CONSTRAINT "Outfit_activityId_fkey" FOREIGN KEY ("activityId") REFERENCES "Activity"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Conditions" ADD CONSTRAINT "Conditions_outfitId_fkey" FOREIGN KEY ("outfitId") REFERENCES "Outfit"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

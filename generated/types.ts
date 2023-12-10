@@ -32,8 +32,12 @@ export const Layer = {
     OUTER: "OUTER"
 } as const;
 export type Layer = (typeof Layer)[keyof typeof Layer];
+export const QueueQualifier = {
+    STRAVA_WEBHOOK: "STRAVA_WEBHOOK"
+} as const;
+export type QueueQualifier = (typeof QueueQualifier)[keyof typeof QueueQualifier];
 export type Activity = {
-    id: Generated<number>;
+    id: string;
     name: string;
     at: Timestamp;
     durationSeconds: number;
@@ -41,20 +45,20 @@ export type Activity = {
     longitude: string;
 };
 export type Article = {
-    id: Generated<number>;
-    brandId: number;
+    id: string;
+    brandId: string;
     name: string;
     year: number | null;
     url: string | null;
     bodyPart: BodyPart;
 };
 export type Brand = {
-    id: Generated<number>;
+    id: string;
     name: string;
     url: string | null;
 };
 export type Conditions = {
-    id: Generated<number>;
+    id: string;
     temperature: string;
     perceivedTemperature: string | null;
     humidity: number | null;
@@ -62,31 +66,42 @@ export type Conditions = {
     windDirection: string | null;
     precipitationType: string | null;
     precipitationIntensity: number | null;
-    outfitId: number;
+    outfitId: string;
     dataSource: WeatherDataSource;
     dataSourceUrl: string | null;
 };
+export type ConnectedService = {
+    id: string;
+    userId: string;
+    subscriptionId: string;
+    service: WorkoutSource;
+};
 export type LinkedWorkout = {
-    id: Generated<number>;
+    id: string;
     globalId: string;
     url: string;
     source: WorkoutSource;
-    activityId: number;
+    activityId: string;
 };
 export type Outfit = {
-    id: Generated<number>;
+    id: string;
     date: Timestamp;
-    activityId: number;
-    userId: number;
+    activityId: string;
 };
 export type OutfitArticle = {
-    id: Generated<number>;
-    outfitId: number;
-    articleId: number;
+    id: string;
+    outfitId: string;
+    articleId: string;
     layer: Layer | null;
 };
+export type Queue = {
+    id: string;
+    timeInserted: Generated<Timestamp>;
+    payload: unknown;
+    qualifier: QueueQualifier;
+};
 export type User = {
-    id: Generated<number>;
+    id: string;
     email: string;
     name: string;
 };
@@ -95,8 +110,10 @@ export type DB = {
     Article: Article;
     Brand: Brand;
     Conditions: Conditions;
+    ConnectedService: ConnectedService;
     LinkedWorkout: LinkedWorkout;
     Outfit: Outfit;
     OutfitArticle: OutfitArticle;
+    Queue: Queue;
     User: User;
 };

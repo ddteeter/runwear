@@ -8,14 +8,22 @@ generator kysely {
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @db.Uuid @default(uuid())
   email String @unique
   name String
-  outfits Outfit[]
+  connectedServices ConnectedService[]
+}
+
+model ConnectedService {
+  id String @id @db.Uuid @default(uuid())
+  user User @relation(fields: [userId], references: [id])
+  userId String @db.Uuid
+  subscriptionId String
+  service WorkoutSource
 }
 
 model Activity {
-  id Int @id @default(autoincrement())
+  id String @id @db.Uuid @default(uuid())
   name String
   at DateTime
   durationSeconds Int
@@ -26,18 +34,16 @@ model Activity {
 }
 
 model Outfit {
-  id Int @id @default(autoincrement())
+  id String @id @db.Uuid @default(uuid())
   date DateTime @db.Date
   activity Activity? @relation(fields: [activityId], references: [id])
-  activityId Int @unique
-  user User @relation(fields: [userId], references: [id])
-  userId Int
+  activityId String @db.Uuid @unique
   articles OutfitArticle[]
   conditions Conditions?
 }
 
 model Conditions {
-  id Int @id @default(autoincrement())
+  id String @id @db.Uuid @default(uuid())
   temperature Decimal
   perceivedTemperature Decimal?
   humidity Int?
@@ -46,7 +52,7 @@ model Conditions {
   precipitationType String?
   precipitationIntensity Int?
   outfit Outfit @relation(fields: [outfitId], references: [id])
-  outfitId Int @unique
+  outfitId String @db.Uuid @unique
   dataSource WeatherDataSource
   dataSourceUrl String?
 }
@@ -57,12 +63,12 @@ enum WeatherDataSource {
 }
 
 model LinkedWorkout {
-  id Int @id @default(autoincrement())
+  id String @id @db.Uuid @default(uuid())
   globalId String @unique
   url String
   source WorkoutSource
   activity Activity @relation(fields: [activityId], references: [id])
-  activityId Int @unique
+  activityId String @db.Uuid @unique
 }
 
 enum WorkoutSource {
@@ -72,18 +78,18 @@ enum WorkoutSource {
 }
 
 model OutfitArticle {
-  id Int @id @default(autoincrement())
+  id String @id @db.Uuid @default(uuid())
   outfit Outfit @relation(fields: [outfitId], references: [id])
-  outfitId Int
+  outfitId String @db.Uuid
   article Article @relation(fields: [articleId], references: [id])
-  articleId Int
+  articleId String @db.Uuid
   layer Layer?
 }
 
 model Article {
-  id Int @id @default(autoincrement())
+  id String @id @db.Uuid @default(uuid())
   brand Brand @relation(fields: [brandId], references: [id])
-  brandId Int
+  brandId String @db.Uuid
   name String
   year Int?
   url String?
@@ -109,8 +115,19 @@ enum Layer {
 }
 
 model Brand {
-  id Int @id @default(autoincrement())
+  id String @id @db.Uuid @default(uuid())
   name String @unique
   url String?
   articles Article[]
+}
+
+model Queue {
+  id String @id @db.Uuid @default(uuid())
+  timeInserted DateTime @default(now())
+  payload Json
+  qualifier QueueQualifier
+}
+
+enum QueueQualifier {
+  STRAVA_WEBHOOK
 }
