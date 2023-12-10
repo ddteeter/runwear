@@ -14,7 +14,8 @@
     "migrate": "dotenv -e .env -- bun prisma migrate dev"
   },
   "dependencies": {
-    "@prisma/client": "5.7.0"
+    "@prisma/client": "5.7.0",
+    "kysely": "^0.26.3"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.3",
