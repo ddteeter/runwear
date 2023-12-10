@@ -11,7 +11,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
     "test": "vitest run",
-    "migrate": "prisma migrate dev"
+    "migrate": "dotenv -e .env -- bun prisma migrate dev"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.3",
@@ -21,6 +21,7 @@
     "@nuxt/typescript-build": "^3.0.2",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
     "@typescript-eslint/parser": "^6.13.2",
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8.55.0",
     "lint-staged": "^15.2.0",
     "nuxt": "^3.8.2",
@@ -41,5 +42,8 @@
   },
   "lint-staged": {
     "*": "bun lint:fix"
+  },
+  "dependencies": {
+    "@prisma/client": "5.7.0"
   }
 }
