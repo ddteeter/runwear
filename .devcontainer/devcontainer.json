@@ -21,7 +21,7 @@
         "vscode-icons-team.vscode-icons",
         "bradlc.vscode-tailwindcss",
         "merithayan.polar",
-        "svelte.svelte-vscode",
+        "Vue.volar",
         "ms-playwright.playwright"
       ]
     }
