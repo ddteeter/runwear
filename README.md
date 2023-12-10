@@ -1,75 +1,16 @@
-# Nuxt 3 Minimal Starter
+# Run Wearing
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+An application that allows runners to track their apparel across weather conditions, with the ability to make recommendations for conditions moving forward based on past experiences.
 
-## Setup
+## Project Setup
 
-Make sure to install the dependencies:
+### Codespaces
 
-```bash
-# npm
-npm install
+This project is set up to run in GitHub Codespaces (or other devcontainer solutions). It includes the main app container and a Postgres sidecar.
 
-# pnpm
-pnpm install
+### .env
 
-# yarn
-yarn install
-
-# bun
-bun install
+The scripts in the package.json assume a .env file will be provided at the root of the project for development. The following are some non-secrets you need to drop in:
 ```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
