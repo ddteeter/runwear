@@ -10,7 +10,8 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint .",
     "lint:fix": "eslint --fix .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "migrate": "prisma migrate dev"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.3",
@@ -23,6 +24,8 @@
     "eslint": "^8.55.0",
     "lint-staged": "^15.2.0",
     "nuxt": "^3.8.2",
+    "prisma": "^5.7.0",
+    "prisma-kysely": "^1.7.1",
     "simple-git-hooks": "^2.9.0",
     "typescript": "^5.3.3",
     "vitest": "^1.0.4",

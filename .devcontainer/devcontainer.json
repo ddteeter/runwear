@@ -21,7 +21,9 @@
         "bradlc.vscode-tailwindcss",
         "merithayan.polar",
         "Vue.volar",
-        "ms-playwright.playwright"
+        "ms-playwright.playwright",
+        "prisma.prisma",
+        "mtxr.sqltools"
       ]
     }
   }

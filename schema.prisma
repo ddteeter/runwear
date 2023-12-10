@@ -1,0 +1,120 @@
+datasource db {
+  provider = "postgresql"
+  url = env("DATABASE_URL")
+}
+
+generator kysely {
+  provider = "prisma-kysely"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  email String @unique
+  name String
+  outfits Outfit[]
+}
+
+model Activity {
+  id Int @id @default(autoincrement())
+  name String
+  at DateTime
+  durationSeconds Int
+  latitude Decimal
+  longitude Decimal
+  workout LinkedWorkout?
+  outfit Outfit?
+}
+
+model Outfit {
+  id Int @id @default(autoincrement())
+  date DateTime @db.Date
+  activity Activity? @relation(fields: [activityId], references: [id])
+  activityId Int @unique
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  articles OutfitArticle[]
+  conditions Conditions?
+}
+
+model Conditions {
+  id Int @id @default(autoincrement())
+  temperature Decimal
+  perceivedTemperature Decimal?
+  humidity Int?
+  windSpeed Int?
+  windDirection String?
+  precipitationType String?
+  precipitationIntensity Int?
+  outfit Outfit @relation(fields: [outfitId], references: [id])
+  outfitId Int @unique
+  dataSource WeatherDataSource
+  dataSourceUrl String?
+}
+
+enum WeatherDataSource {
+  MANUALLY_ENTERED
+  APPLE_WEATHER_KIT
+}
+
+model LinkedWorkout {
+  id Int @id @default(autoincrement())
+  globalId String @unique
+  url String
+  source WorkoutSource
+  activity Activity @relation(fields: [activityId], references: [id])
+  activityId Int @unique
+}
+
+enum WorkoutSource {
+  STRAVA
+  GARMIN
+  APPLE_HEALTH
+}
+
+model OutfitArticle {
+  id Int @id @default(autoincrement())
+  outfit Outfit @relation(fields: [outfitId], references: [id])
+  outfitId Int
+  article Article @relation(fields: [articleId], references: [id])
+  articleId Int
+  layer Layer?
+}
+
+model Article {
+  id Int @id @default(autoincrement())
+  brand Brand @relation(fields: [brandId], references: [id])
+  brandId Int
+  name String
+  year Int?
+  url String?
+  bodyPart BodyPart
+  outfits OutfitArticle[]
+}
+
+enum BodyPart {
+  HEAD
+  FACE
+  NECK
+  ARMS
+  HANDS
+  TORSO
+  LEGS
+  FOOT
+}
+
+enum Layer {
+  BASE
+  MID
+  OUTER
+}
+
+model Brand {
+  id Int @id @default(autoincrement())
+  name String @unique
+  url String?
+  articles Article[]
+}
