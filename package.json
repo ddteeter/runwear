@@ -13,6 +13,9 @@
     "test": "vitest run",
     "migrate": "dotenv -e .env -- bun prisma migrate dev"
   },
+  "dependencies": {
+    "@prisma/client": "5.7.0"
+  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.3",
     "@nuxt/devtools": "latest",
@@ -42,8 +45,5 @@
   },
   "lint-staged": {
     "*": "bun lint:fix"
-  },
-  "dependencies": {
-    "@prisma/client": "5.7.0"
   }
 }

@@ -1,3 +1,8 @@
 import antfu from '@antfu/eslint-config'
 
-export default antfu()
+const antfuConfig = antfu();
+
+export default {
+  ...antfuConfig,
+  ignores: [ ...antfuConfig.ignores || [], "generated/*", "migrations/*" ]
+}
