@@ -17,7 +17,6 @@
         "yoavbls.pretty-ts-errors",
         "GitHub.copilot",
         "GitHub.copilot-chat",
-        "esbenp.prettier-vscode",
         "dbaeumer.vscode-eslint",
         "eamodio.gitlens",
         "vscode-icons-team.vscode-icons",
