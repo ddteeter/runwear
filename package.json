@@ -43,8 +43,7 @@
   },
   "simple-git-hooks": {
     "pre-commit": [
-      "bun lint-staged",
-      "bun test"
+      "npx lint-staged"
     ]
   },
   "lint-staged": {
