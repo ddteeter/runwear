@@ -14,8 +14,10 @@
     "migrate": "dotenv -e .env -- bun prisma migrate dev"
   },
   "dependencies": {
+    "@auth/core": "^0.18.5",
     "@prisma/client": "5.7.0",
-    "kysely": "^0.26.3"
+    "kysely": "^0.26.3",
+    "next-auth": "4.22.5"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.3",
@@ -24,6 +26,7 @@
     "@nuxt/types": "^2.17.2",
     "@nuxt/typescript-build": "^3.0.2",
     "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@sidebase/nuxt-auth": "^0.6.3",
     "@typescript-eslint/parser": "^6.13.2",
     "dotenv-cli": "^7.3.0",
     "eslint": "^8.55.0",
