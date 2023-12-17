@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev:codespaces": "AUTH_ORIGIN=https://${CODESPACE_NAME}-3000.app.github.dev NEXTAUTH_URL=${AUTH_ORIGIN} nuxt dev",
+    "dev:codespaces": "DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres AUTH_ORIGIN=https://${CODESPACE_NAME}-3000.app.github.dev NEXTAUTH_URL=${AUTH_ORIGIN} nuxt dev",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",

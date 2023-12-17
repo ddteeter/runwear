@@ -83,7 +83,7 @@ export type ConnectedUser = {
     id: string;
     userId: string;
     serviceUserId: string;
-    subscriptionId: string;
+    subscriptionId: string | null;
     service: WorkoutSource;
 };
 export type LinkedWorkout = {
