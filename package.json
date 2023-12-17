@@ -3,6 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
+    "env:prepare": "export AUTH_ORIGIN=https://${CODESPACE_NAME}-3000.app.github.dev && export NEXTAUTH_URL=${AUTH_ORIGIN}",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",

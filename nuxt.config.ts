@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     auth: {
       origin: "",
       secret: "",
+      debug: false,
       strava: {
         clientId: "",
         clientSecret: ""
