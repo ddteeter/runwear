@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "env:prepare": "export AUTH_ORIGIN=https://${CODESPACE_NAME}-3000.app.github.dev && export NEXTAUTH_URL=${AUTH_ORIGIN}",
+    "dev:codespaces": "AUTH_ORIGIN=https://${CODESPACE_NAME}-3000.app.github.dev NEXTAUTH_URL=${AUTH_ORIGIN} nuxt dev",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@auth/core": "^0.18.5",
-    "@prisma/client": "5.7.0",
+    "@prisma/client": "^5.7.0",
     "kysely": "^0.26.3",
     "next-auth": "4.22.5"
   },

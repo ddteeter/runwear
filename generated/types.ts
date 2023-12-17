@@ -4,6 +4,14 @@ export type Generated<T> = T extends ColumnType<infer S, infer I, infer U>
   : ColumnType<T, T | undefined, T>;
 export type Timestamp = ColumnType<Date, Date | string, Date | string>;
 
+export const TempRuns = {
+    VERY_COLD: "VERY_COLD",
+    COLD: "COLD",
+    NORMAL: "NORMAL",
+    WARM: "WARM",
+    VERY: "VERY"
+} as const;
+export type TempRuns = (typeof TempRuns)[keyof typeof TempRuns];
 export const WeatherDataSource = {
     MANUALLY_ENTERED: "MANUALLY_ENTERED",
     APPLE_WEATHER_KIT: "APPLE_WEATHER_KIT"
@@ -47,6 +55,7 @@ export type Activity = {
 export type Article = {
     id: string;
     brandId: string;
+    userId: string;
     name: string;
     year: number | null;
     url: string | null;
@@ -70,9 +79,10 @@ export type Conditions = {
     dataSource: WeatherDataSource;
     dataSourceUrl: string | null;
 };
-export type ConnectedService = {
+export type ConnectedUser = {
     id: string;
     userId: string;
+    serviceUserId: string;
     subscriptionId: string;
     service: WorkoutSource;
 };
@@ -110,7 +120,7 @@ export type DB = {
     Article: Article;
     Brand: Brand;
     Conditions: Conditions;
-    ConnectedService: ConnectedService;
+    ConnectedUser: ConnectedUser;
     LinkedWorkout: LinkedWorkout;
     Outfit: Outfit;
     OutfitArticle: OutfitArticle;
