@@ -1,10 +1,8 @@
 export default defineNuxtRouteMiddleware(to => {
-  if (to.meta.middleware === "auth") {
     const { status, data } = useAuth();
 
-    console.log(status);
-    console.log(data);
+    console.log(status.value);
+    console.log(data.value);
     if (status.value === "authenticated" && data.value?.user) {
     }
-  }
 });
