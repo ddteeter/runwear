@@ -3,7 +3,8 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev:codespaces": "NUXT_AUTH_DEBUG=true NUXT_AUTH_SECRET=$(openssl rand -base64 32) DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres AUTH_ORIGIN=https://${CODESPACE_NAME}-3000.app.github.dev NEXTAUTH_URL=${AUTH_ORIGIN} nuxt dev",
+    "dev:dc:codespaces": "NUXT_AUTH_DEBUG=true NUXT_AUTH_SECRET=$(openssl rand -base64 32) DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres AUTH_ORIGIN=https://${CODESPACE_NAME}-3000.app.github.dev NEXTAUTH_URL=${AUTH_ORIGIN} nuxt dev",
+    "dev:dc:local": "NUXT_AUTH_DEBUG=true NUXT_AUTH_SECRET=$(openssl rand -base64 32) DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres AUTH_ORIGIN=http://localhost:3000 NEXTAUTH_URL=${AUTH_ORIGIN} nuxt dev",
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
@@ -13,7 +14,7 @@
     "lint:fix": "eslint --fix .",
     "test": "vitest run",
     "migrate": "dotenv -e .env -- bun prisma migrate dev",
-    "migrate:codespaces": "DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres bun prisma migrate dev"
+    "migrate:dc": "DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres bun prisma migrate dev"
   },
   "dependencies": {
     "@auth/core": "^0.18.5",

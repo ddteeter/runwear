@@ -4,4 +4,6 @@ definePageMeta({ layout: "no-auth" })
 
 <template>
   Welcome to RunWearing
+
+  <NuxtLink to="/app">Go to app</NuxtLink>
 </template>

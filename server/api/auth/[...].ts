@@ -1,6 +1,7 @@
 import StravaProvider from "next-auth/providers/strava"
 import { NuxtAuthHandler } from "#auth"
 import { PrismaClient, WorkoutSource } from "@prisma/client";
+import { PrismaAdapter } from "@auth/prisma-adapter"
 
 const prisma = new PrismaClient();
 
@@ -18,19 +19,30 @@ const toWorkoutService = (service: string | undefined): WorkoutSource => {
 // @ts-ignore
 const stravaProvider = StravaProvider.default({
   clientId: `${runtimeConfig.auth.strava.clientId}`,
-  clientSecret: `${runtimeConfig.auth.strava.clientSecret}`
+  clientSecret: `${runtimeConfig.auth.strava.clientSecret}`,
+  token: {
+    // @ts-ignore
+    async request({ client, params, checks, provider }) {
+      const { token_type, expires_at, refresh_token, access_token } =
+        await client.oauthCallback(provider.callbackUrl, params, checks);
+      return {
+        tokens: { token_type, expires_at, refresh_token, access_token },
+      };
+    },
+  },
 })
 
 export default NuxtAuthHandler({
   debug: runtimeConfig.auth.debug,
   secret: runtimeConfig.auth.secret,
   providers: [stravaProvider],
+  adapter: PrismaAdapter(prisma),
   callbacks: {
-    session: async ({ session, token, user }) => {
-      console.log("SESSION CALLBACK");
-      console.log(session);
-      console.log(token);
-      console.log(user);
+    session: async ({ session, user }) => {
+      if (session.user) {
+        session.user.id = user.id;
+        session.user.verifiedEmail = user.emailVerified;
+      }
 
       return session;
     }

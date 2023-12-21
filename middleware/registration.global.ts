@@ -1,8 +1,16 @@
-export default defineNuxtRouteMiddleware(to => {
-    const { status, data } = useAuth();
+import { PrismaClient } from "@prisma/client";
 
-    console.log(status.value);
-    console.log(data.value);
-    if (status.value === "authenticated" && data.value?.user) {
-    }
+const prisma = new PrismaClient();
+
+export default defineNuxtRouteMiddleware(async to => {
+  const { status, data } = useAuth();
+
+  console.log('MIDDLEWARE');
+  console.log(to.meta.middleware);
+  console.log(status.value);
+  console.log(data.value);
+  if (to.meta.middleware === "auth" && status.value === "authenticated" && to.path !== "/app/verify-email" && (!data.value || !data.value.user.verifiedEmail)) {
+    console.log('REDIRECTING');
+    return navigateTo('/app/verify-email');
+  }
 });

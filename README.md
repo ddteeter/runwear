@@ -31,5 +31,15 @@ There are some convenience scripts to run the project in GitHub Codespaces.
 
 In order to start up the application, simply run:
 ```
-bun dev:codespaces
+bun migrate:dc
+bun dev:dc:codespaces
+```
+
+### In a devcontainer locally (Easy with VS Code!)
+There are some convenience scripts to run the project in Local DevContainers.
+
+In order to start up the application, simply run:
+```
+bun migrate:dc
+bun dev:dc:local
 ```
