@@ -2,6 +2,7 @@ import StravaProvider from "next-auth/providers/strava"
 import { NuxtAuthHandler } from "#auth"
 import { PrismaClient, WorkoutSource } from "@prisma/client";
 import { PrismaAdapter } from "@auth/prisma-adapter"
+import { sendVerificationEmail } from "~/lib/user/verification/verification-service";
 
 const prisma = new PrismaClient();
 
@@ -45,6 +46,13 @@ export default NuxtAuthHandler({
       }
 
       return session;
+    }
+  },
+  events: {
+    createUser: async (message) => {
+      if (message.user.email) {
+        sendVerificationEmail(message.user.id)
+      }
     }
   }
 });

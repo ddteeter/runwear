@@ -3,3 +3,7 @@ definePageMeta({ middleware: "auth" });
 
 await navigateTo("/app/dashboard");
 </script>
+
+<template>
+  Redirecting...
+</template>
