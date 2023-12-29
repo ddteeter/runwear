@@ -1,9 +1,9 @@
 <script setup lang="ts">
-definePageMeta({ middleware: "auth" });
+definePageMeta({ middleware: 'auth' })
 
-const route = useRoute();
+const route = useRoute()
 </script>
 
 <template>
-  Activity for Id {{route.params.id}}
+  Activity for Id {{ route.params.id }}
 </template>

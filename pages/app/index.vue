@@ -1,7 +1,7 @@
 <script setup lang="ts">
-definePageMeta({ middleware: "auth" });
+definePageMeta({ middleware: 'auth' })
 
-await navigateTo("/app/dashboard");
+await navigateTo('/app/dashboard')
 </script>
 
 <template>

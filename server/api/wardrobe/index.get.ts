@@ -1,5 +1,5 @@
-import { type Article } from "~/generated/types";
+import type { Article } from '~/generated/types'
 
 export default defineEventHandler((): { wardrobe: Article[] } => {
   return { wardrobe: [] }
-});
+})
