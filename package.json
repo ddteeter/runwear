@@ -1,65 +1,85 @@
 {
   "name": "runwearing",
-  "type": "module",
+  "version": "0.0.0",
   "private": true,
+  "type": "module",
+  "license": "UNLICENSED",
   "scripts": {
-    "dev:dc:codespaces": "NUXT_AUTH_SECRET=$(openssl rand -base64 32) DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres AUTH_ORIGIN=https://${CODESPACE_NAME}-3000.app.github.dev NEXTAUTH_URL=${AUTH_ORIGIN} nuxt dev",
-    "dev:dc:local": "NUXT_AUTH_SECRET=$(openssl rand -base64 32) DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres AUTH_ORIGIN=http://localhost:3000 NEXTAUTH_URL=${AUTH_ORIGIN} nuxt dev",
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare",
+    "start": "node bin/server.js",
+    "build": "node ace build",
+    "dev": "node ace serve --hmr",
+    "test": "node ace test",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix .",
-    "test": "vitest run",
-    "migrate": "dotenv -e .env -- bun prisma migrate dev",
-    "migrate:dc": "DATABASE_URL=postgres://postgres:postgres@localhost:5432/postgres bun prisma migrate dev"
+    "format": "prettier --write .",
+    "typecheck": "tsc --noEmit"
   },
-  "dependencies": {
-    "@auth/core": "^0.18.5",
-    "@auth/prisma-adapter": "^1.0.11",
-    "@prisma/client": "^5.7.0",
-    "date-fns": "^3.0.5",
-    "kysely": "^0.26.3",
-    "nanoid": "^5.0.4",
-    "next-auth": "4.22.5",
-    "postmark": "^4.0.2",
-    "primevue": "^3.45.0",
-    "zod": "^3.22.4"
+  "imports": {
+    "#controllers/*": "./app/controllers/*.js",
+    "#exceptions/*": "./app/exceptions/*.js",
+    "#models/*": "./app/models/*.js",
+    "#mails/*": "./app/mails/*.js",
+    "#services/*": "./app/services/*.js",
+    "#listeners/*": "./app/listeners/*.js",
+    "#events/*": "./app/events/*.js",
+    "#middleware/*": "./app/middleware/*.js",
+    "#validators/*": "./app/validators/*.js",
+    "#providers/*": "./providers/*.js",
+    "#policies/*": "./app/policies/*.js",
+    "#abilities/*": "./app/abilities/*.js",
+    "#database/*": "./database/*.js",
+    "#tests/*": "./tests/*.js",
+    "#start/*": "./start/*.js",
+    "#config/*": "./config/*.js"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.4.3",
-    "@nuxt/devtools": "latest",
-    "@nuxt/test-utils": "^3.8.1",
-    "@nuxt/types": "^2.17.2",
-    "@nuxt/typescript-build": "^3.0.2",
-    "@nuxtjs/eslint-config-typescript": "^12.1.0",
-    "@sidebase/nuxt-auth": "^0.6.3",
-    "@typescript-eslint/parser": "^6.13.2",
-    "autoprefixer": "^10.4.16",
-    "dotenv-cli": "^7.3.0",
-    "eslint": "^8.55.0",
-    "lint-staged": "^15.2.0",
-    "nuxt": "^3.8.2",
-    "nuxt-primevue": "^0.2.2",
-    "postcss": "^8.4.32",
-    "prisma": "^5.7.0",
-    "prisma-kysely": "^1.7.1",
-    "simple-git-hooks": "^2.9.0",
-    "tailwindcss": "^3.4.0",
-    "typescript": "^5.3.3",
-    "vitest": "^1.0.4",
-    "vue": "^3.3.10",
-    "vue-router": "^4.2.5",
-    "vue-tsc": "^1.8.25"
+    "@adonisjs/assembler": "^7.8.2",
+    "@adonisjs/eslint-config": "^2.0.0-beta.6",
+    "@adonisjs/prettier-config": "^1.4.0",
+    "@adonisjs/tsconfig": "^1.4.0",
+    "@japa/assert": "^3.0.0",
+    "@japa/plugin-adonisjs": "^3.0.1",
+    "@japa/runner": "^3.1.4",
+    "@swc/core": "1.7.26",
+    "@types/luxon": "^3.4.2",
+    "@types/node": "^22.7.5",
+    "eslint": "^9.12.0",
+    "hot-hook": "^0.3.1",
+    "pino-pretty": "^11.2.2",
+    "prettier": "^3.3.3",
+    "ts-node-maintained": "^10.9.4",
+    "typescript": "~5.6",
+    "vite": "^5.4.8"
   },
-  "simple-git-hooks": {
-    "pre-commit": [
-      "npx lint-staged"
+  "dependencies": {
+    "@adonisjs/auth": "^9.2.3",
+    "@adonisjs/core": "^6.14.1",
+    "@adonisjs/lucid": "^21.3.0",
+    "@adonisjs/session": "^7.5.0",
+    "@adonisjs/shield": "^8.1.1",
+    "@adonisjs/static": "^1.1.1",
+    "@adonisjs/vite": "^3.0.0",
+    "@vinejs/vine": "^2.1.0",
+    "better-sqlite3": "^11.5.0",
+    "edge.js": "^6.2.0",
+    "luxon": "^3.5.0",
+    "reflect-metadata": "^0.2.2"
+  },
+  "hotHook": {
+    "boundaries": [
+      "./app/controllers/**/*.ts",
+      "./app/middleware/*.ts"
     ]
   },
-  "lint-staged": {
-    "*": "bun lint:fix"
-  }
+  "overrides": {
+    "strtok3": "8.0.1"
+  },
+  "resolutions": {
+    "strtok3": "8.0.1"
+  },
+  "pnpm": {
+    "overrides": {
+      "strtok3": "8.0.1"
+    }
+  },
+  "prettier": "@adonisjs/prettier-config"
 }
